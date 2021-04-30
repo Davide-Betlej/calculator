@@ -19,7 +19,16 @@ function operate (operator, a, b){
     b = Number(b)
     switch (operator) {
         case "+":
-            return add(a,b);
+            return add(a, b);
+        case "-":
+            return substract(a, b);
+        case "*":
+            return multiply(a, b);
+        case "/":
+            if (a === 0 || b === 0) {
+                alert("Are you kidding me? What did they teach you in school?")
+            }
+            return divide(a, b);
         default: {
             return null;
         }
