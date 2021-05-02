@@ -1,3 +1,70 @@
+const displayWindow = document.querySelector('#display');
+const valueButtons = document.querySelectorAll('button.value');
+const operatorButtons = document.querySelectorAll('button.operator');
+const deleteButton = document.querySelector('button.delete')
+const clearButton = document.querySelector('button.clear');
+const equalsButton = document.querySelector('button.equals');
+
+equalsButton.addEventListener('click', evalue);
+deleteButton.addEventListener('click', deleteLast);
+clearButton.addEventListener('click', clearAll);
+
+
+operatorButtons.forEach(operator => 
+    operator.addEventListener('click', () => setOperation(operator.value))
+);
+        
+
+valueButtons.forEach(button => 
+    button.addEventListener('click', () => appendValue(button.value))
+);
+
+
+let currentValue
+let currentOperator = null
+let secondValue
+
+function appendValue(number) {
+    if (displayWindow.textContent == "0") {
+        displayWindow.textContent = ""
+    }
+    displayWindow.textContent += `${number}`
+}
+
+function setOperation(operator) {
+    if (currentOperator !== null) evalue();
+    currentValue = displayWindow.textContent;
+    currentOperator = operator
+    clearScreen();
+}
+
+function evalue() {
+    if (currentOperator === null) return;
+    if (currentOperator === "/" && displayWindow.textContent === "0") {
+        alert("Are you kidding me? What did they teach you in school?");
+        clearAll();
+        return
+    }
+    secondValue = displayWindow.textContent
+    displayWindow.textContent = operate(currentOperator, currentValue, secondValue)
+    currentOperator = null;
+}
+
+function clearScreen() {
+    displayWindow.textContent = "";
+}
+
+function deleteLast () {
+    displayWindow.textContent = displayWindow.textContent.slice(0, -1)
+}
+
+function clearAll() {
+    currentValue = ""
+    currentOperator = null
+    displayWindow.textContent = "0"
+    secondValue = ""
+}
+
 function add(a, b) {
     return a + b
 };
@@ -25,9 +92,6 @@ function operate (operator, a, b){
         case "*":
             return multiply(a, b);
         case "/":
-            if (a === 0 || b === 0) {
-                alert("Are you kidding me? What did they teach you in school?")
-            }
             return divide(a, b);
         default: {
             return null;

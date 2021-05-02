@@ -1,6 +1,11 @@
 html {
     text-align: center  ;
 }
+
+body {
+    background-color: #4c728398;
+}
+
 #calc {
     display: flex;
     min-height: 95vh;
@@ -9,7 +14,6 @@ html {
     align-items: center;
     align-content: center;
 }
-
 
 #main-container {
     display: grid;
@@ -25,20 +29,30 @@ html {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    background-color:aquamarine;
+    background-color:lightgray;
     font-size: 4em;
     padding: 10px;
     border-radius: 1%;
+    margin-bottom: 10px;
 }
 
 button {
-    font-size: 1.5em;
+    font-size: 2em;
     color: black;
     margin: 1px;
     border: none;
     border-radius: 10%;
+    background-color: grey;
 }
 
 #zero {
     grid-column: span 2;
+}
+
+.equals {
+    grid-row: span 2;
+}
+
+button.operator, button.clear, button.delete, button.equals {
+    background-color: orange;
 }
