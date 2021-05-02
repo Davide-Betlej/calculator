@@ -4,10 +4,11 @@ const operatorButtons = document.querySelectorAll('button.operator');
 const deleteButton = document.querySelector('button.delete')
 const clearButton = document.querySelector('button.clear');
 const equalsButton = document.querySelector('button.equals');
-
+const decimalButton = document.querySelector('button.decimal')
 equalsButton.addEventListener('click', evalue);
 deleteButton.addEventListener('click', deleteLast);
 clearButton.addEventListener('click', clearAll);
+decimalButton.addEventListener('click', appendDecimal)
 
 
 operatorButtons.forEach(operator => 
@@ -46,8 +47,24 @@ function evalue() {
         return
     }
     secondValue = displayWindow.textContent
-    displayWindow.textContent = operate(currentOperator, currentValue, secondValue)
+    displayWindow.textContent = roundNumbers(
+        operate(currentOperator, currentValue, secondValue)
+    );
     currentOperator = null;
+}
+
+function appendDecimal() {
+    if (displayWindow.textContent === "") {
+        displayWindow.textContent = "0"
+    }
+    if (displayWindow.textContent.includes(".")) {
+        return
+    }
+    displayWindow.textContent += ".";
+}
+
+function roundNumbers(number) {
+    return Math.round(number * 1000) / 1000;
 }
 
 function clearScreen() {
@@ -56,6 +73,9 @@ function clearScreen() {
 
 function deleteLast () {
     displayWindow.textContent = displayWindow.textContent.slice(0, -1)
+    if (displayWindow.textContent == "") {
+        displayWindow.textContent = "0"
+    }
 }
 
 function clearAll() {
